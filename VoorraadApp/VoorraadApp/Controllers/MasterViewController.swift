@@ -1,11 +1,3 @@
-//
-//  MasterViewController.swift
-//  VoorraadApp
-//
-//  Created by Hannah on 4/3/18.
-//  Copyright © 2018 Hannah. All rights reserved.
-//
-
 import UIKit
 
 class MasterViewController: UITableViewController {
@@ -17,9 +9,13 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+//        let product2 = Product(id:6, name:"ugh", description: "blabla")
+//
 //        let defaults = UserDefaults.standard
-//        defaults.set(product, forKey: "product")
-    
+//        defaults.set(product2, forKey: "product")
+//
+//        product = UserDefaults.standard.object(forKey: "product") as! Product
+
         navigationItem.leftBarButtonItem = editButtonItem
 
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
@@ -28,6 +24,7 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -92,7 +89,6 @@ class MasterViewController: UITableViewController {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-
 
 }
 

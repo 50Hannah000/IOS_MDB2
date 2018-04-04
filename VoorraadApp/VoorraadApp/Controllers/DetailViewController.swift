@@ -1,11 +1,3 @@
-//
-//  DetailViewController.swift
-//  VoorraadApp
-//
-//  Created by Hannah on 4/3/18.
-//  Copyright © 2018 Hannah. All rights reserved.
-//
-
 import UIKit
 
 class DetailViewController: UIViewController {
