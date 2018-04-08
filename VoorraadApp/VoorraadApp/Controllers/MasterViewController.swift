@@ -114,9 +114,25 @@ class MasterViewController: UITableViewController {
             if let receivedData = data {
                 Swift.print("\(receivedData)")
 
-                do {
-                    let json = try JSONSerialization.jsonObject(with: receivedData, options: []) as! [Product: AnyObject] // Optie 1: Gebruik JSONSerialization
-                    Swift.print("\(json)")
+//                do {
+                    var names = [String]()
+                    
+                    do {
+//                        if let  = data,
+                        let json = try JSONSerialization.jsonObject(with: receivedData, options: []) as! [ProductData: AnyObject]
+//                        var blogs : json?["products"] as? [[ProductData: Any]] {
+//                            for blog in blogs {
+//                                if let name = blog["name"] as? String {
+//                                    names.append(name)
+//                                }
+//                            }
+//                        }
+                        Swift.print("json \(json)")
+                    } catch {
+                        print("Error deserializing JSON: \(error)")
+                    }
+                    
+                    print(names)
 //                    for products in productsArray {
 //                        if(products.key == "products") {
 //                        Swift.print("producten \(products) index \(product.key)")
@@ -125,16 +141,16 @@ class MasterViewController: UITableViewController {
 //                            }
 //                        }
 //                    }
-                }
+//                }
 
 //                    let length = productsArray.count
 //                    DispatchQueue.main.async {
 //                        Swift.print("nounou\(length)")
 //                    }
 //                }
-            catch {
-                    Swift.print("someting went wrong")
-                }
+//            catch {
+//                    Swift.print("someting went wrong")
+//                }
             }
         }
         task.resume()
