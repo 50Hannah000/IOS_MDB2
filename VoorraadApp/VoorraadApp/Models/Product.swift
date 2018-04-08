@@ -5,7 +5,7 @@ class Product: NSObject, NSCoding, Decodable {
     
     var id: Int
     var name: String
-    var bla: String
+    var price: Int
    
     //MARK: Archiving Paths
     static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -15,10 +15,10 @@ class Product: NSObject, NSCoding, Decodable {
     struct PropertyKey {
         static let id = "id"
         static let name = "name"
-        static let bla = "bla"
+        static let price = "price"
     }
    
-    init?(id: Int, name: String, bla: String) {
+    init?(id: Int, name: String, price: Int) {
         
         // The name must not be empty
         guard !name.isEmpty else {
@@ -34,7 +34,7 @@ class Product: NSObject, NSCoding, Decodable {
         // Initialize stored properties.
         self.id = id
         self.name = name
-        self.bla = bla
+        self.price = price
         
     }
     
@@ -42,7 +42,7 @@ class Product: NSObject, NSCoding, Decodable {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(id, forKey: PropertyKey.id)
         aCoder.encode(name, forKey: PropertyKey.name)
-        aCoder.encode(bla, forKey: PropertyKey.bla)
+        aCoder.encode(price, forKey: PropertyKey.price)
     }
     
    required convenience init?(coder aDecoder: NSCoder) {
@@ -52,9 +52,9 @@ class Product: NSObject, NSCoding, Decodable {
             return nil
         }
         let id = aDecoder.decodeInteger(forKey: PropertyKey.id)
-        let bla = aDecoder.decodeObject(forKey: PropertyKey.bla)
+        let price = aDecoder.decodeObject(forKey: PropertyKey.price)
         
         // Must call designated initializer.
-        self.init(id: id, name: name, bla: bla as! String)
+    self.init(id: id, name: name, price: price as! Int)
     }
 }

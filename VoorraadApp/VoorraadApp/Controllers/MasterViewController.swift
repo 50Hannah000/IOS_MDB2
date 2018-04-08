@@ -40,7 +40,7 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Product) {
-        guard let product = Product(id: 12144, name: "boemboem Salad", bla: "ololol") else {
+        guard let product = Product(id: 12144, name: "boemboem Salad", price: 3) else {
             fatalError("Unable to instantiate product1")
         }
         
@@ -89,140 +89,48 @@ class MasterViewController: UITableViewController {
     
     private func loadSampleProducts() {
         
-        guard let product1 = Product(id: 1212, name: "Caprese Salad", bla: "jajaja") else {
+        guard let product1 = Product(id: 1212, name: "Caprese Salad", price: 2) else {
             fatalError("Unable to instantiate product1")
         }
         
-        guard let product2 = Product(id: 233, name: "BOEEH Salad", bla: "nenene") else {
+        guard let product2 = Product(id: 233, name: "BOEEH Salad", price: 6) else {
             fatalError("Unable to instantiate product3")
         }
         
-        guard let product3 = Product(id: 344, name: "nomnom Salad", bla: "oehjaja") else {
+        guard let product3 = Product(id: 344, name: "nomnom Salad", price: 9) else {
             fatalError("Unable to instantiate product3")
         }
         
         products += [product1, product2, product3]
     }
-    
+    var values: NSDictionary = [:]
+    var productvalues : NSArray = []
     func makeHTTPGetRequest() {
         let url = URL(string: "http://localhost:3000/products");
         var request = URLRequest(url:url!);
         request.addValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOjM1LCJfX3YiOjAsImxvY2FsIjp7InBhc3N3b3JkIjoiJDJhJDA4JENrcU54NFVhcFVkTXlqV1BIbklaSWVNenRSa3ZEOFhXZC5iR0VQUlFjVlpnLnhsQTViU1RTIiwiZW1haWwiOiJoYW5uYWhtYXVyaXR6QGdtYWlsLmNvbSIsIm5hbWUiOiIifSwiaXNBZG1pbiI6dHJ1ZX0.-Caei3JSstNLIxfEQY_UfhgwqLaRITVU8PV7i2S61xQ", forHTTPHeaderField: "Authorization")
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-           
+        let task = URLSession.shared.dataTask(with: request) { data, _, _ in
             if let receivedData = data {
-                Swift.print("\(receivedData)")
-
-//                do {
-                    var names = [String]()
-                    
-                    do {
-//                        if let  = data,
-                        let json = try JSONSerialization.jsonObject(with: receivedData, options: []) as! [ProductData: AnyObject]
-//                        var blogs : json?["products"] as? [[ProductData: Any]] {
-//                            for blog in blogs {
-//                                if let name = blog["name"] as? String {
-//                                    names.append(name)
-//                                }
-//                            }
-//                        }
-                        Swift.print("json \(json)")
-                    } catch {
-                        print("Error deserializing JSON: \(error)")
+                do {
+                    self.values = try JSONSerialization.jsonObject(with: receivedData, options: []) as! NSDictionary
+                    self.productvalues = self.values["products"] as! NSArray
+                    for productObject in self.productvalues {
+                        var array = [Product]()
+                        array.append(productObject as! Product)
+                         Swift.print("object \(productObject)")
                     }
+//                    Swift.print("\(self.productvalues)")
                     
-                    print(names)
-//                    for products in productsArray {
-//                        if(products.key == "products") {
-//                        Swift.print("producten \(products) index \(product.key)")
-//                            for product in products {
-//                                Swift.print("\(product.name)")
-//                            }
-//                        }
-//                    }
-//                }
-
-//                    let length = productsArray.count
-//                    DispatchQueue.main.async {
-//                        Swift.print("nounou\(length)")
-//                    }
-//                }
-//            catch {
-//                    Swift.print("someting went wrong")
-//                }
+                } catch{
+                    
+                }
             }
+            
         }
         task.resume()
     }
-    
-//    var pokemon = PokeData(id: 0, height: 0, name: "", sprites: Sprites(front_default: ""))
-//    func makeHTTPGetRequest(id: Int) {
-//        let session = URLSession.shared
-//        let url = URL(string: "https://pokeapi.co/api/v1/pokemon/\(id)")
-//        let task = session.dataTask(with: url!) { (data, _, _) in
-//            if let data = data {
-//                guard let pokemon = try? JSONDecoder().decode(PokeData.self, from: data) else {
-//                    print("Error: Couldn't decode data into pokemon \(data)")
-//                    return
-//                }
-//                self.pokemon  = pokemon
-////                self.displayPokemon()
-//                print("oioioio")
-//                print("\(pokemon)")
-//                return
-//            }
-//        }
-//        task.resume()
-//    }
-////
-//    func getPokemons() {
-//         if let receivedData = data {
-//            Swift.print("\(receivedData)")
-//            do {
-//                for count in 1...20 {
-//                    self.getPokemon(id: count)
-//                }
-//                let decoder = JSONDecoder()
-//                let pokedata = try! decoder.decode(PokeData.self, from: receivedData)
-//                DispatchQueue.main.async {
-//                    //ui
-//                    Swift.print("\(pokedata)")
-//                }
-//            } catch { }
-//            }
-//        }
-//        task.resume()
-//    }
-//
-//
-//    func getPokemon(id: Int){
-//        let url = URL(string: "https://pokeapi.co/api/v2/pokemon/")!
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//
-//            dispatch_async(dispatch_get_main_queue(), {
-//
-//
-//            self.data.getResults("http://pokeapi.co/api/v1/pokemon/\(id)",
-//                result: { (result: Pokemon) -> Void in
-//
-//                    self.pokemon = result
-//
-//                    let updatedDes = NSUserDefaults.standardUserDefaults().objectForKey("des\(id)")
-//                    if (updatedDes == nil){
-//                        self.loadDescription(result.description_url)
-//                    }
-//
-//                    self.updateFields()
-//            })
-//
-//
-//
-//            // Set image
-////            self.setImage(id)
-//
-//        })
-//    }
+
     // MARK: - Table View
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -237,7 +145,7 @@ class MasterViewController: UITableViewController {
         
         let product = products[indexPath.row]
         cell.textLabel!.text = product.name
-        cell.textLabel!.text = product.bla
+//        cell..text = product.price
         
         return cell
     }
