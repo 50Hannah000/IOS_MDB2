@@ -8,16 +8,10 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        DispatchQueue.global(qos: .userInteractive).async {
-            self.loadProducts()
-            self.makeHTTPGetRequest(id: 5)
-//            self.getPokemons()
-        }
+        self.makeHTTPGetRequest()
+//        self.makeHTTPGetRequest(id: 5)
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
+    
         navigationItem.leftBarButtonItem = editButtonItem
        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(insertNewObject(_:)))
@@ -73,6 +67,10 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
         }
+        if segue.identifier == "createItem" {
+            let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+            controller.navigationItem.leftItemsSupplementBackButton = true
+        }
     }
     
     // MARK: - private methods
@@ -106,54 +104,62 @@ class MasterViewController: UITableViewController {
         products += [product1, product2, product3]
     }
     
-//    func makeHTTPGetRequest() {
-//        let url = URL(string: "https://pokeapi.co/")!
-//
-//        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-//
-//            if let receivedData = data {
-//                Swift.print("\(receivedData)")
-//
-//                do {
-//                    // Optie 1: Gebruik JSONSerialization
-//
-//                    let json = try JSONSerialization.jsonObject(with: receivedData) as! [String:Any]
-//                    Swift.print("\(json)")
-//                    // MARK: Gebruik Codable protocol
-//                    let decoder = JSONDecoder()
-//                    let productdata = try! decoder.decode(ProductData.self, from: receivedData)
-//
-//                    let categoryName = productdata.category.name
-//
-//                    DispatchQueue.main.async {
-//                        Swift.print("\(categoryName)")
+    func makeHTTPGetRequest() {
+        let url = URL(string: "http://localhost:3000/products");
+        var request = URLRequest(url:url!);
+        request.addValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOjM1LCJfX3YiOjAsImxvY2FsIjp7InBhc3N3b3JkIjoiJDJhJDA4JENrcU54NFVhcFVkTXlqV1BIbklaSWVNenRSa3ZEOFhXZC5iR0VQUlFjVlpnLnhsQTViU1RTIiwiZW1haWwiOiJoYW5uYWhtYXVyaXR6QGdtYWlsLmNvbSIsIm5hbWUiOiIifSwiaXNBZG1pbiI6dHJ1ZX0.-Caei3JSstNLIxfEQY_UfhgwqLaRITVU8PV7i2S61xQ", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+           
+            if let receivedData = data {
+                Swift.print("\(receivedData)")
+
+                do {
+                    let json = try JSONSerialization.jsonObject(with: receivedData, options: []) as! [Product: AnyObject] // Optie 1: Gebruik JSONSerialization
+                    Swift.print("\(json)")
+//                    for products in productsArray {
+//                        if(products.key == "products") {
+//                        Swift.print("producten \(products) index \(product.key)")
+//                            for product in products {
+//                                Swift.print("\(product.name)")
+//                            }
+//                        }
 //                    }
-//                } catch { }
-//            }
-//        }
-//        task.resume()
-//    }
-    
-    var pokemon = PokeData(id: 0, height: 0, name: "", sprites: Sprites(front_default: ""))
-    func makeHTTPGetRequest(id: Int) {
-        let session = URLSession.shared
-        let url = URL(string: "https://pokeapi.co/api/v1/pokemon/\(id)")
-        let task = session.dataTask(with: url!) { (data, _, _) in
-            if let data = data {
-                guard let pokemon = try? JSONDecoder().decode(PokeData.self, from: data) else {
-                    print("Error: Couldn't decode data into pokemon \(data)")
-                    return
                 }
-                self.pokemon  = pokemon
-//                self.displayPokemon()
-                print("oioioio")
-                print("\(pokemon)")
-                return
+
+//                    let length = productsArray.count
+//                    DispatchQueue.main.async {
+//                        Swift.print("nounou\(length)")
+//                    }
+//                }
+            catch {
+                    Swift.print("someting went wrong")
+                }
             }
         }
         task.resume()
     }
-//
+    
+//    var pokemon = PokeData(id: 0, height: 0, name: "", sprites: Sprites(front_default: ""))
+//    func makeHTTPGetRequest(id: Int) {
+//        let session = URLSession.shared
+//        let url = URL(string: "https://pokeapi.co/api/v1/pokemon/\(id)")
+//        let task = session.dataTask(with: url!) { (data, _, _) in
+//            if let data = data {
+//                guard let pokemon = try? JSONDecoder().decode(PokeData.self, from: data) else {
+//                    print("Error: Couldn't decode data into pokemon \(data)")
+//                    return
+//                }
+//                self.pokemon  = pokemon
+////                self.displayPokemon()
+//                print("oioioio")
+//                print("\(pokemon)")
+//                return
+//            }
+//        }
+//        task.resume()
+//    }
+////
 //    func getPokemons() {
 //         if let receivedData = data {
 //            Swift.print("\(receivedData)")
