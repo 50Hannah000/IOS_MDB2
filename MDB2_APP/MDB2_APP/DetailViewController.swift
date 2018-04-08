@@ -1,3 +1,11 @@
+//
+//  DetailViewController.swift
+//  MDB2_APP
+//
+//  Created by Hannah on 4/6/18.
+//  Copyright © 2018 Hannah. All rights reserved.
+//
+
 import UIKit
 
 class DetailViewController: UIViewController {
@@ -9,7 +17,7 @@ class DetailViewController: UIViewController {
         // Update the user interface for the detail item.
         if let detail = detailItem {
             if let label = detailDescriptionLabel {
-                label.text = detail.name
+                label.text = detail.timestamp!.description
             }
         }
     }
@@ -25,7 +33,7 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    var detailItem: Product? {
+    var detailItem: Event? {
         didSet {
             // Update the view.
             configureView()
