@@ -8,9 +8,6 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.makeHTTPGetRequest()
-//        self.makeHTTPGetRequest(id: 5)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
     
         navigationItem.leftBarButtonItem = editButtonItem
        
@@ -40,18 +37,29 @@ class MasterViewController: UITableViewController {
 
     @objc
     func insertNewObject(_ sender: Product) {
-        guard let product = Product(id: 12144, name: "boemboem Salad", price: 3) else {
-            fatalError("Unable to instantiate product1")
+//        let product1 = Product(id: 23, name: "Doe")
+//        var someproducts:[Product]? = []
+//        someproducts?.append(product1)
+        var someproducts:[Product]? = []
+       someproducts = loadSampleProducts();
+//        guard let product = Product(id: 12144, name: "boemboem Salad") else {
+//            fatalError("Unable to instantiate product1")
+//        }
+//        var myPeople:[Product]? = []
+//        myPeople?.append(john)
+        for product in someproducts! {
+            products.insert(product, at: 0)
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
         }
+//        let newIndexPath = IndexPath(row: products.count, section: 0)
         
-        let newIndexPath = IndexPath(row: products.count, section: 0)
-        
-        products.append(product)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
-        
-        products.insert(product, at: 0)
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+//        products.append(product)
+//        tableView.insertRows(at: [newIndexPath], with: .automatic)
+//
+//        products.insert(products, at: 0)
+//        let indexPath = IndexPath(row: 0, section: 0)
+//        tableView.insertRows(at: [indexPath], with: .automatic)
     }
 
     // MARK: - Segues
@@ -84,53 +92,27 @@ class MasterViewController: UITableViewController {
     }
     
     private func loadProducts() -> [Product]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: Product.ArchiveURL.path) as! [Product]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Product.ArchiveURL.path) as? [Product]
     }
     
-    private func loadSampleProducts() {
+    private func loadSampleProducts() -> [Product]{
         
-        guard let product1 = Product(id: 1212, name: "Caprese Salad", price: 2) else {
+        guard let product1 = Product(id: 1212, name: "Caprese Salad") else {
             fatalError("Unable to instantiate product1")
         }
         
-        guard let product2 = Product(id: 233, name: "BOEEH Salad", price: 6) else {
+        guard let product2 = Product(id: 233, name: "BOEEH Salad") else {
             fatalError("Unable to instantiate product3")
         }
         
-        guard let product3 = Product(id: 344, name: "nomnom Salad", price: 9) else {
+        guard let product3 = Product(id: 344, name: "nomnom Salad") else {
             fatalError("Unable to instantiate product3")
         }
         
-        products += [product1, product2, product3]
+        var sampleproducts = [product1, product2, product3]
+        return sampleproducts;
     }
-    var values: NSDictionary = [:]
-    var productvalues : NSArray = []
-    func makeHTTPGetRequest() {
-        let url = URL(string: "http://localhost:3000/products");
-        var request = URLRequest(url:url!);
-        request.addValue("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfaWQiOjM1LCJfX3YiOjAsImxvY2FsIjp7InBhc3N3b3JkIjoiJDJhJDA4JENrcU54NFVhcFVkTXlqV1BIbklaSWVNenRSa3ZEOFhXZC5iR0VQUlFjVlpnLnhsQTViU1RTIiwiZW1haWwiOiJoYW5uYWhtYXVyaXR6QGdtYWlsLmNvbSIsIm5hbWUiOiIifSwiaXNBZG1pbiI6dHJ1ZX0.-Caei3JSstNLIxfEQY_UfhgwqLaRITVU8PV7i2S61xQ", forHTTPHeaderField: "Authorization")
-        
-        let task = URLSession.shared.dataTask(with: request) { data, _, _ in
-            if let receivedData = data {
-                do {
-                    self.values = try JSONSerialization.jsonObject(with: receivedData, options: []) as! NSDictionary
-                    self.productvalues = self.values["products"] as! NSArray
-                    for productObject in self.productvalues {
-                        var array = [Product]()
-                        array.append(productObject as! Product)
-                         Swift.print("object \(productObject)")
-                    }
-//                    Swift.print("\(self.productvalues)")
-                    
-                } catch{
-                    
-                }
-            }
-            
-        }
-        task.resume()
-    }
-
+    
     // MARK: - Table View
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1

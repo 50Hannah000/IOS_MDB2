@@ -15,8 +15,9 @@
 		BB6CBB7620742BA3007CA7BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB6CBB7420742BA3007CA7BF /* LaunchScreen.storyboard */; };
 		BB6CBB8120742BA3007CA7BF /* VoorraadAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6CBB8020742BA3007CA7BF /* VoorraadAppTests.swift */; };
 		BB6CBB8C20742BA3007CA7BF /* VoorraadAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6CBB8B20742BA3007CA7BF /* VoorraadAppUITests.swift */; };
-		BB6CBBA0207430AB007CA7BF /* PokeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6CBB9F207430AB007CA7BF /* PokeData.swift */; };
 		BB6CBBA320755443007CA7BF /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6CBBA120755232007CA7BF /* Product.swift */; };
+		BBD4C45A20CA931D00E83D4D /* Pokemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4C45920CA931D00E83D4D /* Pokemon.swift */; };
+		BBD4C45C20CA932B00E83D4D /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBD4C45B20CA932B00E83D4D /* DataService.swift */; };
 		BBDF9E04207A2EE7006461D2 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBDF9E03207A2EE7006461D2 /* CreateViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,8 +53,9 @@
 		BB6CBB8720742BA3007CA7BF /* VoorraadAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoorraadAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB6CBB8B20742BA3007CA7BF /* VoorraadAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoorraadAppUITests.swift; sourceTree = "<group>"; };
 		BB6CBB8D20742BA3007CA7BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BB6CBB9F207430AB007CA7BF /* PokeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokeData.swift; sourceTree = "<group>"; };
 		BB6CBBA120755232007CA7BF /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
+		BBD4C45920CA931D00E83D4D /* Pokemon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pokemon.swift; path = ../../VoorraadAppHer/VoorraadAppHer/Pokemon.swift; sourceTree = "<group>"; };
+		BBD4C45B20CA932B00E83D4D /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataService.swift; path = ../../VoorraadAppHer/VoorraadAppHer/DataService.swift; sourceTree = "<group>"; };
 		BBDF9E03207A2EE7006461D2 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,8 +107,10 @@
 		BB6CBB6820742BA3007CA7BF /* VoorraadApp */ = {
 			isa = PBXGroup;
 			children = (
+				BBD4C45B20CA932B00E83D4D /* DataService.swift */,
 				BB6CBB9E20742DDB007CA7BF /* Controllers */,
 				BB6CBB9A20742D75007CA7BF /* Models */,
+				BBD4C45920CA931D00E83D4D /* Pokemon.swift */,
 				BB6CBB6920742BA3007CA7BF /* AppDelegate.swift */,
 				BB6CBB9920742D16007CA7BF /* Views */,
 				BB6CBB7220742BA3007CA7BF /* Assets.xcassets */,
@@ -145,7 +149,6 @@
 		BB6CBB9A20742D75007CA7BF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BB6CBB9F207430AB007CA7BF /* PokeData.swift */,
 				BB6CBBA120755232007CA7BF /* Product.swift */,
 			);
 			path = Models;
@@ -295,8 +298,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BBD4C45C20CA932B00E83D4D /* DataService.swift in Sources */,
+				BBD4C45A20CA931D00E83D4D /* Pokemon.swift in Sources */,
 				BB6CBB6E20742BA3007CA7BF /* DetailViewController.swift in Sources */,
-				BB6CBBA0207430AB007CA7BF /* PokeData.swift in Sources */,
 				BBDF9E04207A2EE7006461D2 /* CreateViewController.swift in Sources */,
 				BB6CBBA320755443007CA7BF /* Product.swift in Sources */,
 				BB6CBB6C20742BA3007CA7BF /* MasterViewController.swift in Sources */,
